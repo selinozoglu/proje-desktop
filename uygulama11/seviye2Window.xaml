@@ -1,0 +1,23 @@
+﻿<Window x:Class="uygulama11.seviye2Window"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:uygulama11"
+        mc:Ignorable="d"
+        Title="seviye2Window" Height="180" Width="320">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Button x:Name="BtnOlumlu" Content="Olumlu" Grid.Row="0" Grid.Column="0" Margin="20" Click="BtnOlumlu_Click"/>
+        <Button x:Name="BtnOlumsuz" Content="Olumsuz" Grid.Row="0" Grid.Column="1" Margin="20" Click="BtnOlumsuz_Click"/>
+        <Button x:Name="BtnTarafsiz" Content="Tarafsız" Grid.Row="1" Grid.Column="0" Margin="20" Click="BtnTarafsiz_Click"/>
+        <Button x:Name="BtnAlakasız" Content="Alakasız" Grid.Row="1" Grid.Column="1" Margin="20" Click="BtnAlakasız_Click"/>
+    </Grid>
+</Window>

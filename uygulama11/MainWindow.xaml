@@ -1,0 +1,49 @@
+﻿<Window x:Class="uygulama11.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:uygulama11"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width ="2*"/>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="0.5*"/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="4*" x:Name="birinci"/>
+                <RowDefinition Height="1*" />
+            </Grid.RowDefinitions>
+            <ScrollViewer>
+                <TextBox x:Name="TbTweet" Grid.Column="0" AcceptsReturn="True" Margin="3"/>
+            </ScrollViewer>
+            <StackPanel Grid.Column="0" Grid.Row="2" Orientation="Horizontal" Margin="3">
+                <Button x:Name ="BtnTemizle" Grid.Row="5" Grid.Column="0" Content="Temizle" Margin="5" Width="100" MinHeight="50" Click="BtnTemizle_Click"/>
+                <Button x:Name ="BtnTweetSil" Grid.Row="6" Grid.Column="0" Content="Seçili tweeti sil" Margin="5" Width="100" MinHeight="50" Click="BtnTweetSil_Click_1"/>
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Column="1">
+            <ScrollViewer>
+                <ListBox x:Name="listBox1" Margin="3" />
+            </ScrollViewer>
+
+        </Grid>
+        <Grid Grid.Column="3" Margin=" 5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+            <Button x:Name="BtnAltin" Content="Altin" Margin="15" MinHeight="20" Click="BtnAltin_Click"/>
+            <Button x:Name="BtnBorsa" Grid.Row="1" Content="Borsa" Margin="15" MinHeight="20" Click="BtnBorsa_Click"/>
+            <Button x:Name="BtnDoviz" Grid.Row="2" Content="Doviz" Margin="15" MinHeight="20" Click="BtnDoviz_Click"/>
+            <Button x:Name="BtnEkonomi" Grid.Row="3" Content="Ekonomi" Margin="15" MinHeight="20" Click="BtnEkonomi_Click"/>
+            <Button x:Name="BtnEnflasyon"  Content="Enflasyon" Grid.Row="4" Margin="15" MinHeight="20" Click="BtnEnflasyon_Click"/>
+        </Grid>
+    </Grid>
+</Window>
