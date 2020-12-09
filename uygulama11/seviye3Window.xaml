@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:uygulama11"
         mc:Ignorable="d"
-        Title="seviye3Window" Height="180" Width="320">
+        Title="seviye3Window" Height="180" Width="320"
+        WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>

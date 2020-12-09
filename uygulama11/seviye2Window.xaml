@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:uygulama11"
         mc:Ignorable="d"
-        Title="seviye2Window" Height="180" Width="320">
+        Title="seviye2Window" Height="180" Width="320"
+        WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -18,6 +19,6 @@
         <Button x:Name="BtnOlumlu" Content="Olumlu" Grid.Row="0" Grid.Column="0" Margin="20" Click="BtnOlumlu_Click"/>
         <Button x:Name="BtnOlumsuz" Content="Olumsuz" Grid.Row="0" Grid.Column="1" Margin="20" Click="BtnOlumsuz_Click"/>
         <Button x:Name="BtnTarafsiz" Content="Tarafsız" Grid.Row="1" Grid.Column="0" Margin="20" Click="BtnTarafsiz_Click"/>
-        <Button x:Name="BtnAlakasız" Content="Alakasız" Grid.Row="1" Grid.Column="1" Margin="20" Click="BtnAlakasız_Click"/>
+        <Button x:Name="BtnAlakasiz" Content="Alakasız" Grid.Row="1" Grid.Column="1" Margin="20" Click="BtnAlakasiz_Click"/>
     </Grid>
 </Window>

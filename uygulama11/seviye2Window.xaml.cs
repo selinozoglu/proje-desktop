@@ -21,127 +21,203 @@ namespace uygulama11
     /// </summary>
     public partial class seviye2Window : Window
     {
-        public static bool olumluTıklandıMı; 
-        public static bool olumsuzTıklandıMı; 
-        public static bool tarafsizTıklandıMı; 
-        public static bool alakasizTıklandıMı;
-        public seviye2Window()
-        {
-            InitializeComponent();
-        }
         MainWindow mainWindow = new MainWindow();
-        public void DosyaYaz(string path, string konu)
+        
+        public static bool olumluTiklandiMi; 
+        public static bool olumsuzTiklandiMi; 
+        public static bool tarafsizTiklandiMi; 
+        public static bool alakasizTiklandiMi;
+        
+        public seviye2Window(MainWindow nmain)
         {
-            List<string> temizTweet = new List<string>();
-            temizTweet.Add(MainWindow.seciliTweet.ToString());
-
-            FileStream dosya = new FileStream(path, FileMode.Append, FileAccess.Write);
-            StreamWriter sw = new StreamWriter(dosya);
-            for (int i = 0; i < temizTweet.Count; i++)
-                sw.WriteLine(temizTweet[i].ToString() + konu);
-            sw.Close();
-            dosya.Close();
-
+            mainWindow = nmain;
+            
+            InitializeComponent();
+            
         }
         public void BtnOlumlu_Click(object sender, RoutedEventArgs e)
-        {
-            olumluTıklandıMı = true;
-
-            if(MainWindow.AltinTıklandıMı == true){
-                DosyaYaz("AltınOlumlu.txt", "Altin_Olumlu");
-            }
-            if (MainWindow.BorsaTıklandıMı == true)
+        { 
+            olumluTiklandiMi = true;
+            
+            if(MainWindow.AltinTiklandiMi == true && MainWindow.BorsaTiklandiMi == false
+                && MainWindow.EkonomiTiklandiMi == false &&
+                MainWindow.EnflasyonTiklandiMi == false)
             {
-                DosyaYaz("BorsaOlumlu.txt", "Borsa_Olumlu");
+                mainWindow.DosyaYaz("AltinOlumlu.txt", " Altin_Olumlu");
+                MessageBox.Show(MainWindow.seciliTweet);
             }
-            if (MainWindow.EkonomiTıklandıMı == true)
+            else if(MainWindow.BorsaTiklandiMi == true && MainWindow.AltinTiklandiMi == false
+                && MainWindow.EkonomiTiklandiMi == false && 
+                MainWindow.EnflasyonTiklandiMi == false)
             {
-                DosyaYaz("EkonomiOlumlu.txt", "Ekonomi_Olumlu");
+                mainWindow.DosyaYaz("BorsaOlumlu.txt", " Borsa_Olumlu");
             }
-            if (MainWindow.EnflasyonTıklandıMı == true)
+            
+            if (MainWindow.EkonomiTiklandiMi == true && MainWindow.BorsaTiklandiMi == false 
+                && MainWindow.AltinTiklandiMi == false
+              && MainWindow.EnflasyonTiklandiMi == false)
             {
-                DosyaYaz("EnflasyonOlumlu.txt", "Enflasyon_Olumlu");
+                mainWindow.DosyaYaz("EkonomiOlumlu.txt", " Ekonomi_Olumlu");
             }
-            if (seviye3Window.euroSecildiMi == true )
+            if (MainWindow.EnflasyonTiklandiMi == true && MainWindow.BorsaTiklandiMi == false 
+                && MainWindow.AltinTiklandiMi == false
+                && MainWindow.EkonomiTiklandiMi == false )
             {
-                DosyaYaz("DovizEuroOlumlu.txt", "Doviz_Euro_Olumlu");
+                mainWindow.DosyaYaz("EnflasyonOlumlu.txt", " Enflasyon_Olumlu");
             }
-            if (seviye3Window.dolarSecildiMi == true)
+            if (seviye3Window.euroTiklandiMi == true && seviye3Window.dolarTiklandiMi == false 
+                && seviye3Window.digerTiklandiMi == false && MainWindow.DovizTiklandiMi == true)
             {
-                DosyaYaz("DovizDolarOlumlu.txt", "Doviz_Dolar_Olumlu");
+                mainWindow.DosyaYaz("DovizEuroOlumlu.txt", " Doviz_Euro_Olumlu");
             }
-            if (seviye3Window.digerSecildiMi == true)
+            if (seviye3Window.euroTiklandiMi == false && seviye3Window.dolarTiklandiMi == true
+                && seviye3Window.digerTiklandiMi == false && MainWindow.DovizTiklandiMi == true)
             {
-                DosyaYaz("DovizDigerOlumlu.txt", "Doviz_Diger_Olumlu");
+                mainWindow.DosyaYaz("DovizDolarOlumlu.txt", " Doviz_Dolar_Olumlu");
             }
-            this.Close();
+            if (seviye3Window.euroTiklandiMi == false && seviye3Window.dolarTiklandiMi == false
+                && seviye3Window.digerTiklandiMi == true && MainWindow.DovizTiklandiMi == true)
+            {
+                mainWindow.DosyaYaz("DovizDigerOlumlu.txt", " Doviz_Diger_Olumlu");
+            }
+            this.Hide();
 
         }
 
         private void BtnOlumsuz_Click(object sender, RoutedEventArgs e)
         {
-            olumsuzTıklandıMı = true;
+            olumsuzTiklandiMi = true;
 
-            if (MainWindow.AltinTıklandıMı == true)
+            if (MainWindow.AltinTiklandiMi == true && MainWindow.BorsaTiklandiMi == false
+                && MainWindow.EkonomiTiklandiMi == false &&
+                MainWindow.EnflasyonTiklandiMi == false)
             {
-                DosyaYaz("AltınOlumsuz.txt", "Altin_Olumsuz");
+                mainWindow.DosyaYaz("AltinOlumsuz.txt", " Altin_Olumsuz");
             }
-            if (MainWindow.BorsaTıklandıMı == true)
+            else if (MainWindow.BorsaTiklandiMi == true && MainWindow.AltinTiklandiMi == false
+                && MainWindow.EkonomiTiklandiMi == false &&
+                MainWindow.EnflasyonTiklandiMi == false)
             {
-                DosyaYaz("BorsaOlumsuz.txt", "Borsa_Olumsuz");
+                mainWindow.DosyaYaz("BorsaOlumsuz.txt", " Borsa_Olumsuz");
             }
-            if (MainWindow.EkonomiTıklandıMı == true)
+            else if (MainWindow.EkonomiTiklandiMi == true && MainWindow.BorsaTiklandiMi == false
+                && MainWindow.AltinTiklandiMi == false
+              && MainWindow.EnflasyonTiklandiMi == false)
             {
-                DosyaYaz("EkonomiOlumsuz.txt", "Ekonomi_Olumsuz");
+                mainWindow.DosyaYaz("EkonomiOlumsuz.txt", " Ekonomi_Olumsuz");
             }
-            if (MainWindow.EnflasyonTıklandıMı == true)
+            else if (MainWindow.EnflasyonTiklandiMi == true && MainWindow.BorsaTiklandiMi == false
+                && MainWindow.AltinTiklandiMi == false
+                && MainWindow.EkonomiTiklandiMi == false)
             {
-                DosyaYaz("EnflasyonOlumsuz.txt", "Enflasyon_Olumsuz");
+                mainWindow.DosyaYaz("EnflasyonOlumsuz.txt", " Enflasyon_Olumsuz");
+            }
+            else if (seviye3Window.euroTiklandiMi == false && seviye3Window.dolarTiklandiMi == true
+                && seviye3Window.digerTiklandiMi == false && MainWindow.DovizTiklandiMi == true)
+            {
+                mainWindow.DosyaYaz("DovizDolarOlumsuz.txt", " Doviz_Dolar_Olumsuz");
+            }
+            else if (seviye3Window.euroTiklandiMi == true && seviye3Window.dolarTiklandiMi == false
+                && seviye3Window.digerTiklandiMi == false && MainWindow.DovizTiklandiMi == true)
+            {
+                mainWindow.DosyaYaz("DovizEuroOlumsuz.txt", " Doviz_Euro_Olumsuz");
+            }
+            else if (seviye3Window.euroTiklandiMi == false && seviye3Window.dolarTiklandiMi == false
+                && seviye3Window.digerTiklandiMi == true && MainWindow.DovizTiklandiMi == true)
+            {
+                mainWindow.DosyaYaz("DovizDigerOlumsuz.txt", " Doviz_Diger_Olumsuz");
             }
             this.Close();
         }
 
-        private void BtnAlakasız_Click(object sender, RoutedEventArgs e)
+        private void BtnAlakasiz_Click(object sender, RoutedEventArgs e)
         {
-            alakasizTıklandıMı = true;
+            alakasizTiklandiMi = true;
 
-            if (MainWindow.AltinTıklandıMı == true)
+            if (MainWindow.AltinTiklandiMi == true && MainWindow.BorsaTiklandiMi == false
+                && MainWindow.EkonomiTiklandiMi == false &&
+                MainWindow.EnflasyonTiklandiMi == false)
             {
-                DosyaYaz("AltınAlakasız.txt", "Altin_Alakasiz");
+                mainWindow.DosyaYaz("AltinAlakasız.txt", " Altin_Alakasiz");
             }
-            if (MainWindow.BorsaTıklandıMı == true)
+            else if (MainWindow.BorsaTiklandiMi == true && MainWindow.AltinTiklandiMi == false
+                && MainWindow.EkonomiTiklandiMi == false &&
+                MainWindow.EnflasyonTiklandiMi == false)
             {
-                DosyaYaz("BorsaAlakasız.txt", "Borsa_Alakasiz");
+                mainWindow.DosyaYaz("BorsaAlakasız.txt", " Borsa_Alakasiz");
             }
-            if (MainWindow.EkonomiTıklandıMı == true)
+            else if (MainWindow.EkonomiTiklandiMi == true && MainWindow.BorsaTiklandiMi == false
+                && MainWindow.AltinTiklandiMi == false
+              && MainWindow.EnflasyonTiklandiMi == false)
             {
-                DosyaYaz("EkonomiAlakasız.txt", "Ekonomi_Alakasiz");
+                mainWindow.DosyaYaz("EkonomiAlakasız.txt", " Ekonomi_Alakasiz");
             }
-            if (MainWindow.EnflasyonTıklandıMı == true)
+            else if (MainWindow.EnflasyonTiklandiMi == true && MainWindow.BorsaTiklandiMi == false
+                && MainWindow.AltinTiklandiMi == false
+                && MainWindow.EkonomiTiklandiMi == false)
             {
-                DosyaYaz("EnflasyonAlakasız.txt", "Enflasyon_Alakasiz");
+                mainWindow.DosyaYaz("EnflasyonAlakasız.txt", " Enflasyon_Alakasiz");
+            }
+            else if (seviye3Window.euroTiklandiMi == false && seviye3Window.dolarTiklandiMi == true
+                && seviye3Window.digerTiklandiMi == false && MainWindow.DovizTiklandiMi == true)
+            {
+                mainWindow.DosyaYaz("DovizDolarAlakasiz.txt", " Doviz_Dolar_Alakasiz");
+            }
+            else if (seviye3Window.euroTiklandiMi == true && seviye3Window.dolarTiklandiMi == false
+                && seviye3Window.digerTiklandiMi == false && MainWindow.DovizTiklandiMi == true)
+            {
+                mainWindow.DosyaYaz("DovizEuroAlakasiz.txt", " Doviz_Euro_Alakasiz");
+            }
+            else if (seviye3Window.euroTiklandiMi == false && seviye3Window.dolarTiklandiMi == false
+                && seviye3Window.digerTiklandiMi == true && MainWindow.DovizTiklandiMi == true)
+            {
+                mainWindow.DosyaYaz("DovizDigerAlakasiz.txt", " Doviz_Diger_Alakasiz");
             }
             this.Close();
         }
 
         private void BtnTarafsiz_Click(object sender, RoutedEventArgs e)
         {
-            tarafsizTıklandıMı = true;
-            if (MainWindow.AltinTıklandıMı == true)
+            tarafsizTiklandiMi = true;
+            
+            if (MainWindow.AltinTiklandiMi == true && MainWindow.BorsaTiklandiMi == false
+                && MainWindow.EkonomiTiklandiMi == false &&
+                MainWindow.EnflasyonTiklandiMi == false)
             {
-                DosyaYaz("AltınTarafsız.txt", "Altin_Tarafsiz");
+                mainWindow.DosyaYaz("AltinTarafsız.txt", " Altin_Tarafsiz");
             }
-            if (MainWindow.BorsaTıklandıMı == true)
+            else if (MainWindow.BorsaTiklandiMi == true && MainWindow.AltinTiklandiMi == false
+                && MainWindow.EkonomiTiklandiMi == false &&
+                MainWindow.EnflasyonTiklandiMi == false)
             {
-                DosyaYaz("BorsaTarafsız.txt", "Borsa_Tarafsiz");
+                mainWindow.DosyaYaz("BorsaTarafsız.txt", " Borsa_Tarafsiz");
             }
-            if (MainWindow.EkonomiTıklandıMı == true)
+            else if (MainWindow.EkonomiTiklandiMi == true && MainWindow.BorsaTiklandiMi == false
+                && MainWindow.AltinTiklandiMi == false
+              && MainWindow.EnflasyonTiklandiMi == false)
             {
-                DosyaYaz("EkonomiTarafsız.txt", "Ekonomi_Tarafsiz");
+                mainWindow.DosyaYaz("EkonomiTarafsız.txt", " Ekonomi_Tarafsiz");
             }
-            if (MainWindow.EnflasyonTıklandıMı == true)
+            else if (MainWindow.EnflasyonTiklandiMi == true && MainWindow.BorsaTiklandiMi == false
+                && MainWindow.AltinTiklandiMi == false
+                && MainWindow.EkonomiTiklandiMi == false)
             {
-                DosyaYaz("EnflasyonTarafsız.txt", "Enflasyon_Tarafsiz");
+                mainWindow.DosyaYaz("EnflasyonTarafsız.txt", " Enflasyon_Tarafsiz");
+            }
+            else if (seviye3Window.euroTiklandiMi == false && seviye3Window.dolarTiklandiMi == true
+                && seviye3Window.digerTiklandiMi == false && MainWindow.DovizTiklandiMi == true)
+            {
+                mainWindow.DosyaYaz("DovizDolarTarafsiz.txt", " Doviz_Dolar_Tarafsiz");
+            }
+            else if (seviye3Window.euroTiklandiMi == true && seviye3Window.dolarTiklandiMi == false
+                && seviye3Window.digerTiklandiMi == false && MainWindow.DovizTiklandiMi == true)
+            {
+                mainWindow.DosyaYaz("DovizEuroTarafsiz.txt", " Doviz_Euro_Tarafsiz");
+            }
+            else if (seviye3Window.euroTiklandiMi == false && seviye3Window.dolarTiklandiMi == false
+                && seviye3Window.digerTiklandiMi == true && MainWindow.DovizTiklandiMi == true)
+            {
+                mainWindow.DosyaYaz("DovizDigerTarafsiz.txt", " Doviz_Diger_Tarafsiz");
             }
             this.Close();
         }
