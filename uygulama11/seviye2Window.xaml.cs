@@ -38,13 +38,19 @@ namespace uygulama11
         public void BtnOlumlu_Click(object sender, RoutedEventArgs e)
         { 
             olumluTiklandiMi = true;
-            
-            if(MainWindow.AltinTiklandiMi == true && MainWindow.BorsaTiklandiMi == false
+            MainWindow.KucukHarfeCevrilsinMi = true;
+            if (MainWindow.AltinTiklandiMi == true && MainWindow.BorsaTiklandiMi == false
                 && MainWindow.EkonomiTiklandiMi == false &&
                 MainWindow.EnflasyonTiklandiMi == false)
             {
                 mainWindow.DosyaYaz("AltinOlumlu.txt", " Altin_Olumlu");
-                MessageBox.Show(MainWindow.seciliTweet);
+                
+                if(MainWindow.KucukHarfeCevrilsinMi == true)
+                {
+                    mainWindow.KucukHarfeCevir();
+                    mainWindow.DosyaYaz("TekKatmanKucukHarf.txt", "Altin_Olumlu");
+                }
+                MessageBox.Show(MainWindow.seciliTweet);                 
             }
             else if(MainWindow.BorsaTiklandiMi == true && MainWindow.AltinTiklandiMi == false
                 && MainWindow.EkonomiTiklandiMi == false && 

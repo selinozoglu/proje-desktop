@@ -43,6 +43,8 @@ namespace uygulama11
         public static bool DovizTiklandiMi;
         public static bool EkonomiTiklandiMi;
         public static bool EnflasyonTiklandiMi;
+        public static bool KucukHarfeCevrilsinMi;
+        public static bool SayilarSilinsinMi;
 
         
 
@@ -53,107 +55,96 @@ namespace uygulama11
         }
         static class StopwordTool
         {
-            /// <summary>
-            /// Words we want to remove.
-            /// </summary>
-            static Dictionary<string, bool> _stops = new Dictionary<string, bool>
-    {
-        { "a", true },
-        { "aa", true },
-        { "aaa", true },
-        { "ve", true },
-        { "ama", true },
-        { "abe", true },
-        { "abes", true },
-        { "abo", true },
-        { "acaba", true },
-        { "acayip", true },
-        { "acele", true },
-        { "aceleten", true },
-        { "acep", true },
-        { "acımasız", true },
-        { "acımasızcasına", true },
-        { "acilen", true },
-        { "âciz", true },
-        { "âcizane", true },
-        { "aç", true },
-        { "açık", true },
-        { "açıkçası", true },
-        { "açıktan", true },
-        { "adamakıllı", true },
-        { "adamcasına", true },
-        { "adedî", true },
-        { "âdeta", true },
-        { "adına", true },
-        { "adilane", true },
-        { "afedersin", true },
-        { "aferin", true },
-        { "agucuk", true },
-        { "ağababa", true },
-        { "ağabey", true },
-        { "ağır", true },
-        { "ağızdan", true },
-        { "ah", true },
-        { "aha", true },
-        { "ahacık", true },
-        { "ahbap", true },
-        { "aheste", true },
-        { "ahir", true },
-        { "ahiren", true },
-        { "ahlaken", true },
-        { "ailecek", true },
-        { "ait", true },
-        { "akabinde", true },
-        { "akıbet", true },
-        { "maalesef", true },
-        { "galiba", true }
-    };
-
-            /// <summary>
-            /// Chars that separate words.
-            /// </summary>
-            static char[] _delimiters = new char[]
+        static Dictionary<string, bool> _stops = new Dictionary<string, bool>
+        {
+            { "a", true },
+            { "aa", true },
+            { "aaa", true },
+            { "ve", true },
+            { "ama", true },
+            { "abe", true },
+            { "abes", true },
+            { "abo", true },
+            { "acaba", true },
+            { "acayip", true },
+            { "acele", true },
+            { "aceleten", true },
+            { "acep", true },
+            { "acımasız", true },
+            { "acımasızcasına", true },
+            { "acilen", true },
+            { "âciz", true },
+            { "âcizane", true },
+            { "aç", true },
+            { "açık", true },
+            { "açıkçası", true },
+            { "açıktan", true },
+            { "adamakıllı", true },
+            { "adamcasına", true },
+            { "adedî", true },
+            { "âdeta", true },
+            { "adına", true },
+            { "adilane", true },
+            { "afedersin", true },
+            { "aferin", true },
+            { "agucuk", true },
+            { "ağababa", true },
+            { "ağabey", true },
+            { "ağır", true },
+            { "ağızdan", true },
+            { "ah", true },
+            { "aha", true },
+            { "ahacık", true },
+            { "ahbap", true },
+            { "aheste", true },
+            { "ahir", true },
+            { "ahiren", true },
+            { "ahlaken", true },
+            { "ailecek", true },
+            { "ait", true },
+            { "akabinde", true },
+            { "akıbet", true },
+            { "maalesef", true },
+            { "galiba", true }
+        };
+        static char[] _delimiters = new char[]
+        {
+            ' ',
+            ',',
+            ';',
+            '.'
+        };
+        public static string RemoveStopwords(string input)
+        {
+            // 1
+            // Split parameter into words
+            var words = input.Split(_delimiters,
+            StringSplitOptions.RemoveEmptyEntries);
+            // 2
+            // Allocate new dictionary to store found words
+            var found = new Dictionary<string, bool>();
+            // 3
+            // Store results in this StringBuilder
+            StringBuilder builder = new StringBuilder();
+            // 4
+            // Loop through all words
+            foreach (string currentWord in words)
             {
-        ' ',
-        ',',
-        ';',
-        '.'
-            };
-
-            /// <summary>
-            /// Remove stopwords from string.
-            /// </summary>
-            public static string RemoveStopwords(string input)
-            {
-                // 1
-                // Split parameter into words
-                var words = input.Split(_delimiters,
-                    StringSplitOptions.RemoveEmptyEntries);
-                // 2
-                // Allocate new dictionary to store found words
-                var found = new Dictionary<string, bool>();
-                // 3
-                // Store results in this StringBuilder
-                StringBuilder builder = new StringBuilder();
-                // 4
-                // Loop through all words
-                foreach (string currentWord in words)
+                // 5
+                // Convert to lowercase
+                string lowerWord = currentWord.ToLower();
+                // 6
+                // If this is a usable word, add it
+                if (!_stops.ContainsKey(lowerWord) &&
+                    !found.ContainsKey(lowerWord))
                 {
-                    // 5
-                    // Convert to lowercase
-                    string lowerWord = currentWord.ToLower();
-                    // 6
-                    // If this is a usable word, add it
-                    if (!_stops.ContainsKey(lowerWord) &&
-                        !found.ContainsKey(lowerWord))
-                    {
-                        builder.Append(currentWord).Append(' ');
-                        found.Add(lowerWord, true);
-                    }
+                    builder.Append(currentWord).Append(' ');
+                    found.Add(lowerWord, true);
                 }
-                // 7
-                // Return string with words removed
-                return builder.ToString().Trim();
+            }
+            // 7
+            // Return string with words removed
+            return builder.ToString().Trim();
             }
         }
 
@@ -163,8 +154,9 @@ namespace uygulama11
             {
                 seciliTweet = listBox1.SelectedItem.ToString();
                 List<string> temizTweet = new List<string>();
+                if (KucukHarfeCevrilsinMi == true)
+                    KucukHarfeCevir();
                 temizTweet.Add(seciliTweet);
-
                 FileStream dosya = new FileStream(path, FileMode.Append, FileAccess.Write);
                 StreamWriter sw = new StreamWriter(dosya);
                 for (int i = 0; i < temizTweet.Count; i++)
@@ -180,17 +172,15 @@ namespace uygulama11
             else MessageBox.Show("listeden eleman seçilmedi");
         }
 
-        /* public void KucukHarfeCevir(string konu)
-         {
-             seciliTweet = listBox1.SelectedItem.ToString().ToLower();
-             MessageBox.Show(listBox1.SelectedItem.ToString());
-             MessageBox.Show(listBox1.SelectedItem.ToString().ToLower());
-             DosyaYaz("kucukharfecevrilmisHamTweet.txt", konu);
-         }*/
+        public void KucukHarfeCevir()
+        {
+            seciliTweet = seciliTweet.ToLower();
+        }
         private void BtnTemizle_Click(object sender, RoutedEventArgs e)
         {
+            
             string tweetler = TbTweet.Text;
-            tweetler = tweetler.ToLower();//büyük harfi küçük harfe çevirme
+            //tweetler = tweetler.ToLower();//büyük harfi küçük harfe çevirme
             tweetler = Regex.Replace(tweetler, @"[0-9\-]", " ");//sayıları silme
             tweetler = Regex.Replace(tweetler, @"((http|https)://[\w-]+(.[\w-]+)+([\w-.,@?^=%&amp;:/+#]*[\w-@?^=%&amp;/+#])?)", string.Empty);
             char hashtag = '#';
@@ -222,9 +212,10 @@ namespace uygulama11
             DovizTiklandiMi = false;
             EkonomiTiklandiMi = false;
             EnflasyonTiklandiMi = false;
-        seviye2Window seviye2 = new seviye2Window(this);
+            seviye2Window seviye2 = new seviye2Window(this);
             DosyaYaz("Altin.txt", " Altin");
-            DosyaYaz("TemizTweet.txt", " Altin");
+            DosyaYaz("HamTweet.txt", "");
+            
             seviye2.ShowDialog();
         }
         private void BtnBorsa_Click(object sender, RoutedEventArgs e)
@@ -237,7 +228,7 @@ namespace uygulama11
             seviye2Window seviye2 = new seviye2Window(this);
             // seciliTweet = listBox1.SelectedItem.ToString();
             DosyaYaz("Borsa.txt", " Borsa");
-            DosyaYaz("TemizTweet.txt", " Borsa");
+            DosyaYaz("HamTweet.txt", "");
 
             seviye2.ShowDialog();
         }
@@ -250,7 +241,7 @@ namespace uygulama11
             EkonomiTiklandiMi = false;
             EnflasyonTiklandiMi = false;
             DosyaYaz("Doviz.txt", " Doviz");
-            DosyaYaz("TemizTweet.txt", " Doviz");
+            DosyaYaz("HamTweet.txt", "");
             seviye3Window seviye3 = new seviye3Window(this);
             seviye3.ShowDialog();
         }
@@ -266,7 +257,7 @@ namespace uygulama11
             seviye2Window seviye2 = new seviye2Window(this);
             //KucukHarfeCevir("ekonomi");
             DosyaYaz("Ekonomi.txt", " Ekonomi");
-            DosyaYaz("TemizTweet.txt", " Ekonomi");
+            DosyaYaz("HamTweet.txt", "");
             //seviye2Window seviye2 = new seviye2Window();
             seviye2.ShowDialog();
         }
@@ -280,7 +271,7 @@ namespace uygulama11
             EkonomiTiklandiMi = false;
             //seciliTweet = listBox1.SelectedItem.ToString();
             DosyaYaz("Enflasyon.txt", " Enflasyon");
-            DosyaYaz("TemizTweet.txt", " Enflasyon");
+            DosyaYaz("HamTweet.txt", "");
             seviye2Window seviye2 = new seviye2Window(this);
             //seviye2Window seviye2 = new seviye2Window();
             seviye2.ShowDialog();
